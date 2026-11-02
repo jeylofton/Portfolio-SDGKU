@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'CSS/portfolio.css' %}">
+{% endblock %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+<h1>
+    {{ project.title }}
+    {% if project.featured %}<span class="badge text-bg-primary">Featured</span>{% endif %}
+</h1>
+
+{% if project.image %}
+<img src="{{ project.image.url }}" width="500" alt="{{ project.title }}">
+{% endif %}
+
+<p>{{ project.description|linebreaks }}</p>
+
+<p>
+    {% for skill in project.skills.all %}
+    <span class="badge text-bg-secondary">{{ skill.name }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank" rel="noopener" class="btn btn-primary">GitHub</a>{% endif %}
+    {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank" rel="noopener" class="btn btn-secondary">Live Demo</a>{% endif %}
+</p>
+
+<hr>
+<a href="{% url 'portfolio:project_list' %}">&larr; Back to all projects</a>
+{% endblock %}

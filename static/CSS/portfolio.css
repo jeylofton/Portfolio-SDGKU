@@ -1,0 +1,16 @@
+body {
+    background-color: ghostwhite;
+}
+
+.card {
+    margin-bottom: 1rem;
+}
+
+.card img {
+    height: 180px;
+    object-fit: cover;
+}
+
+.badge {
+    margin-right: 0.25rem;
+}
