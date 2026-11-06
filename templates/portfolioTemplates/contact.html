@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<section class="section contact">
+    <h1 class="section__title">Contact</h1>
+    <p class="contact__lead">Have a project in mind or just want to say hi? Send a message and I'll get back to you.</p>
+
+    {% if messages %}
+        <div class="contact-form__messages" role="status" aria-live="polite">
+            {% for message in messages %}
+                <div class="contact-form__alert contact-form__alert--{{ message.tags|default:'info' }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form class="contact-form" method="post" novalidate>
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="contact-form__alert contact-form__alert--error">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <div class="contact-form__field">
+            <label for="{{ form.name.id_for_label }}" class="contact-form__label">Name</label>
+            {{ form.name }}
+            {% if form.name.errors %}<p class="contact-form__error">{{ form.name.errors|join:" " }}</p>{% endif %}
+        </div>
+
+        <div class="contact-form__field">
+            <label for="{{ form.email.id_for_label }}" class="contact-form__label">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}<p class="contact-form__error">{{ form.email.errors|join:" " }}</p>{% endif %}
+        </div>
+
+        <div class="contact-form__field">
+            <label for="{{ form.subject.id_for_label }}" class="contact-form__label">Subject</label>
+            {{ form.subject }}
+            {% if form.subject.errors %}<p class="contact-form__error">{{ form.subject.errors|join:" " }}</p>{% endif %}
+        </div>
+
+        <div class="contact-form__field">
+            <label for="{{ form.message.id_for_label }}" class="contact-form__label">Message</label>
+            {{ form.message }}
+            {% if form.message.errors %}<p class="contact-form__error">{{ form.message.errors|join:" " }}</p>{% endif %}
+        </div>
+
+        <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">
+            <label for="{{ form.website.id_for_label }}">Leave this field empty</label>
+            {{ form.website }}
+        </div>
+
+        <button type="submit" class="btn-accent contact-form__submit">Send Message</button>
+    </form>
+
+    <div class="contact__links">
+        {% if profile.github_url %}
+            <a href="{{ profile.github_url }}" class="btn-ghost" target="_blank" rel="noopener">GitHub</a>
+        {% endif %}
+        {% if profile.linkedin_url %}
+            <a href="{{ profile.linkedin_url }}" class="btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
