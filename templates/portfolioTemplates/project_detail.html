@@ -1,35 +1,25 @@
 {% extends 'base.html' %}
-{% load static %}
-
-{% block css %}
-<link rel="stylesheet" href="{% static 'CSS/portfolio.css' %}">
-{% endblock %}
-
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block content %}
-<h1>
-    {{ project.title }}
-    {% if project.featured %}<span class="badge text-bg-primary">Featured</span>{% endif %}
-</h1>
-
-{% if project.image %}
-<img src="{{ project.image.url }}" width="500" alt="{{ project.title }}">
-{% endif %}
-
-<p>{{ project.description|linebreaks }}</p>
-
-<p>
-    {% for skill in project.skills.all %}
-    <span class="badge text-bg-secondary">{{ skill.name }}</span>
-    {% endfor %}
-</p>
-
-<p>
-    {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank" rel="noopener" class="btn btn-primary">GitHub</a>{% endif %}
-    {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank" rel="noopener" class="btn btn-secondary">Live Demo</a>{% endif %}
-</p>
-
-<hr>
-<a href="{% url 'portfolio:project_list' %}">&larr; Back to all projects</a>
+<section class="section">
+    <div class="content-wrap">
+        {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" style="width:100%;border-radius:10px;margin-bottom:1.5rem;">
+        {% endif %}
+        <h1>{{ project.title }}</h1>
+        <p class="pcard__meta">{{ project.created_at|date:"F Y" }}</p>
+        <p>{{ project.description }}</p>
+        <div class="pcard__tags" style="margin:1.25rem 0;">
+            {% for skill in project.skills.all %}
+                <span class="tag">{{ skill.name }}</span>
+            {% endfor %}
+        </div>
+        <div class="contact__links" style="justify-content:flex-start;">
+            {% if project.github_url %}<a href="{{ project.github_url }}" class="btn-ghost" target="_blank" rel="noopener">GitHub</a>{% endif %}
+            {% if project.live_url %}<a href="{{ project.live_url }}" class="btn-accent" target="_blank" rel="noopener">Live demo</a>{% endif %}
+            <a href="{% url 'portfolio:project_list' %}" class="btn-ghost">Back</a>
+        </div>
+    </div>
+</section>
 {% endblock %}

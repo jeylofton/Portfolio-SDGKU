@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}About Me{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="about">
+        <div class="about__avatar">
+            <div class="about__avatar-circle">
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" alt="{{ profile.name }}">
+                {% else %}
+                    <span class="about__avatar-placeholder">avatar</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="about__text">
+            <p class="about__eyebrow">{{ profile.role|default:"Vertical Software Designer" }}</p>
+            <h1 class="about__name">{{ profile.name|default:"Jey Lofton" }}</h1>
+            <div class="about__bio">{{ profile.bio_primary|default:"Lorem ipsum dolor sit amet consectetur."|linebreaks }}</div>
+            {% if profile.bio_secondary %}
+                <div class="about__bio">{{ profile.bio_secondary|linebreaks }}</div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

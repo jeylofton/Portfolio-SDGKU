@@ -1,27 +1,22 @@
 {% extends 'base.html' %}
-{% load static %}
-
-{% block css %}
-<link rel="stylesheet" href="{% static 'CSS/portfolio.css' %}">
-{% endblock %}
 
 {% block title %}Skills{% endblock %}
 
 {% block content %}
-<h1>Skills</h1>
-
-{% regroup skills by get_category_display as skill_groups %}
-
-{% if skill_groups %}
-    {% for group in skill_groups %}
-    <h3>{{ group.grouper }}</h3>
-    <p>
-        {% for skill in group.list %}
-        <span class="badge text-bg-secondary">{{ skill.name }}</span>
+<section class="section">
+    <h1 class="section__title">Skills</h1>
+    {% regroup skills by get_category_display as skill_groups %}
+    {% if skill_groups %}
+        {% for group in skill_groups %}
+            <h3 style="margin-top:2rem">{{ group.grouper }}</h3>
+            <div class="pcard__tags" style="padding-top:0.5rem">
+                {% for skill in group.list %}
+                    <span class="tag">{{ skill.name }}</span>
+                {% endfor %}
+            </div>
         {% endfor %}
-    </p>
-    {% endfor %}
-{% else %}
-<p>No skills added yet. Add some from the admin panel.</p>
-{% endif %}
+    {% else %}
+        <p style="text-align:center;color:var(--text-muted)">No skills added yet. Add some from the admin panel.</p>
+    {% endif %}
+</section>
 {% endblock %}

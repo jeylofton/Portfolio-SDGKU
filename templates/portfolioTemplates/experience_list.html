@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Experience{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h1 class="section__title">Experience | Education</h1>
+    {% if experiences %}
+        <ol class="timeline">
+            {% for item in experiences %}
+                <li class="tentry">
+                    <div class="tentry__head">
+                        <div class="tentry__heading">
+                            <h3 class="tentry__role">{{ item.role }}</h3>
+                            <p class="tentry__org">
+                                {{ item.organization }}
+                                <span class="tentry__kind tentry__kind--{{ item.kind }}">{{ item.get_kind_display }}</span>
+                            </p>
+                        </div>
+                        <p class="tentry__dates">{{ item.date_range }}</p>
+                    </div>
+                    <div class="tentry__desc">{{ item.description|linebreaks }}</div>
+                    {% if item.skills.all %}
+                        <div class="tentry__tags">
+                            {% for skill in item.skills.all %}
+                                <span class="tag">{{ skill.name }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p style="text-align:center;color:var(--text-muted)">No experience entries yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

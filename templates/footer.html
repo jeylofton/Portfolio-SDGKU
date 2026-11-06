@@ -1,0 +1,11 @@
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <a href="{% url 'portfolio:about' %}" class="site-footer__brand">{% if profile %}{{ profile.name|lower }}{% else %}my name{% endif %}</a>
+        <ul class="site-footer__links">
+            <li><a href="{% url 'portfolio:about' %}">About Me</a></li>
+            <li><a href="{% url 'portfolio:project_list' %}">Projects</a></li>
+            <li><a href="{% url 'portfolio:experience_list' %}">Experience</a></li>
+            <li><a href="{% url 'portfolio:contact' %}">Contact</a></li>
+        </ul>
+    </div>
+</footer>
